@@ -32,7 +32,7 @@ export default function BlogDetailError({
           Error Loading Article
         </h1>
         <p className="mb-2 text-slate-300">
-          We couldn't load the article you're looking for.
+          We couldn&apos;t load the article you&apos;re looking for.
         </p>
         <p className="mb-6 text-sm text-slate-400">
           {error?.message || "The article may have been removed or moved."}

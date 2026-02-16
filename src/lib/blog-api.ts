@@ -79,13 +79,13 @@ async function fetchBlogPageRaw(page: number, pageSize: number) {
 
 async function fetchBlogByIdRaw(id: number): Promise<BlogPost | null> {
   const url = `${API_BASE}/${id}/`;
-  const data = await fetchJson<any>(url);
+  const data = await fetchJson<SpaceflightListResponse["results"][number]>(url);
 
   if (!data) return null;
 
   return {
     id: data.id,
-    slug: String(data.id),
+    slug: data.slug,
     title: data.title,
     summary: data.summary,
     imageUrl: data.image_url,

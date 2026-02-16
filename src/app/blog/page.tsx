@@ -32,16 +32,16 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       <section className="mt-8 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] lg:items-start">
         <div className="space-y-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 dark:text-slate-400">
               All stories
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               Showing{" "}
-              <span className="font-medium text-slate-200">
+              <span className="font-medium text-slate-900 dark:text-slate-200">
                 {posts.length}
               </span>{" "}
               of{" "}
-              <span className="font-medium text-slate-200">{total}</span> posts
+              <span className="font-medium text-slate-900 dark:text-slate-200">{total}</span> posts
             </p>
           </div>
 

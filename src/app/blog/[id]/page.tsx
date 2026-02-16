@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { fetchBlogById } from "@/lib/blog-api";
 import Link from "next/link";
-import Image from "next/image";
+import { ArrowLeft, ExternalLink, Calendar, BookMarked } from "lucide-react";
+import ImageWithFallback from "@/components/blog/ImageWithFallback";
 
 interface BlogDetailPageProps {
   params: { id: number };
@@ -40,35 +41,27 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   return (
     <main className="mx-auto max-w-4xl px-3 pb-12 pt-6 sm:px-4 md:px-6 md:pb-20 md:pt-10">
-      <div className="mb-6 text-xs font-medium uppercase tracking-[0.26em] text-slate-400">
-        <Link href="/blog" className="text-sky-300 hover:text-sky-200">
-          Blog
-        </Link>{" "}
-        / <span className="text-slate-500">Case study</span>
-      </div>
+      <Link href="/blog" className="mb-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors">
+        <ArrowLeft className="h-4 w-4" />
+        Back to Blog
+      </Link>
 
-      <article className="overflow-hidden rounded-3xl border border-slate-800/80 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-950 shadow-[0_32px_90px_rgba(15,23,42,0.95)]">
-        <div className="relative aspect-video sm:aspect-[16/9] lg:aspect-[16/7] w-full overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-800" />
-          {post.imageUrl && (
-            <Image
-              src={post.imageUrl}
-              alt={post.title}
-              fill
-              className="object-cover opacity-75"
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+      <article className="overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-700/40 bg-linear-to-b from-white to-slate-50 dark:from-slate-900/60 dark:via-slate-900/30 dark:to-slate-950 shadow-2xl transition-colors duration-300">
+        <div className="relative aspect-video sm:aspect-video lg:aspect-16/7 w-full overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
+          <ImageWithFallback src={post.imageUrl} alt={post.title} title={post.source} />
+          <div className="absolute inset-0 bg-linear-to-t from-white via-white/50 dark:from-slate-950 dark:via-slate-950/50 to-transparent" />
 
-          <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-10 md:right-10">
-            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-200">
-              <span className="rounded-full bg-sky-500/90 px-3 py-1 font-semibold uppercase tracking-[0.18em] text-slate-950 shadow-lg shadow-sky-500/70">
+          <div className="absolute bottom-6 left-4 right-4 sm:bottom-8 sm:left-6 sm:right-6 md:bottom-10 md:left-10 md:right-10">
+            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-700 dark:text-slate-200 mb-4">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-linear-to-r from-sky-500 to-cyan-500 px-3 py-1.5 font-bold uppercase tracking-wider text-white dark:text-slate-950 shadow-lg shadow-sky-500/60">
+                <BookMarked className="h-3.5 w-3.5" />
                 {post.source}
               </span>
               <time
                 dateTime={post.publishedAt}
-                className="rounded-full bg-slate-950/70 px-3 py-1 text-[11px] font-medium text-slate-200"
+                className="inline-flex items-center gap-1.5 rounded-full bg-slate-300/70 dark:bg-slate-950/70 px-3 py-1.5 text-[12px] font-medium text-slate-900 dark:text-slate-300 backdrop-blur-sm"
               >
+                <Calendar className="h-3.5 w-3.5 text-sky-600 dark:text-sky-400" />
                 {new Date(post.publishedAt).toLocaleDateString(undefined, {
                   day: "2-digit",
                   month: "short",
@@ -77,47 +70,45 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
               </time>
             </div>
 
-            <h1 className="mt-4 max-w-3xl text-2xl font-semibold tracking-tight text-slate-50 md:text-3xl lg:text-4xl">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50 leading-tight">
               {post.title}
             </h1>
           </div>
         </div>
 
-        <div className="px-4 pb-6 pt-5 text-xs leading-relaxed text-slate-200 sm:px-6 sm:pb-8 sm:pt-6 sm:text-sm md:px-10 md:pb-10 md:pt-8 md:text-base">
-          <div className="mb-6 rounded-2xl bg-slate-900/70 p-4 text-xs text-slate-300 md:text-sm">
-            <p>
-              This article is sourced from{" "}
-              <span className="font-semibold text-sky-200">{post.source}</span>.
-              Below is a concise summary. For full details, you can open the
-              original article in a new tab.
+        <div className="px-4 pb-6 pt-5 text-xs leading-relaxed text-slate-700 dark:text-slate-200 sm:px-6 sm:pb-8 sm:pt-6 sm:text-sm md:px-10 md:pb-10 md:pt-8 md:text-base space-y-4">
+          <div className="rounded-lg border border-sky-500/20 bg-linear-to-r from-sky-100 to-cyan-100 dark:from-sky-950/40 dark:to-cyan-950/30 p-4 text-xs sm:text-sm">
+            <p className="text-sky-900 dark:text-slate-300">
+              This article is from{" "}
+              <span className="font-bold text-sky-700 dark:text-sky-300">{post.source}</span>.
+              Below is a summary. For complete details, open the original article.
             </p>
           </div>
 
-          <div className="prose prose-invert prose-slate max-w-none text-[0.95rem] leading-relaxed">
+          <div className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed">
             <p>{post.summary}</p>
-            <p>
-              Because this is powered by a public demo API, we only have access
-              to the summary and metadata—not the full editorial content. In a
-              real production setup, this page would render your rich text
-              content, SEO blocks, and custom components.
+            <p className="text-slate-600 dark:text-slate-400 italic">
+              Since this demo uses a public API, we only have access to summaries. In production, you&apos;d render full rich text content with custom components.
             </p>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-800/80 pt-6">
+          <div className="flex flex-col sm:flex-row gap-3 border-t border-slate-300 dark:border-slate-700/40 pt-6 mt-8">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-1 text-xs font-medium text-slate-300 hover:text-sky-200"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-200 dark:bg-slate-800/40 border border-slate-300 dark:border-slate-700/40 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-600 hover:bg-slate-300 dark:hover:bg-slate-800/60 transition-all"
             >
-              ← Back to all articles
+              <ArrowLeft className="h-4 w-4" />
+              Back to Articles
             </Link>
 
             <a
               href={post.originalUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-4 py-1.5 text-xs font-semibold text-slate-950 shadow-md shadow-sky-500/60 transition hover:bg-sky-400"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-linear-to-r from-sky-600 to-cyan-600 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/40 hover:shadow-sky-500/60 hover:from-sky-500 hover:to-cyan-500 transition-all"
             >
-              Read full story on {post.source} ↗
+              Read Full Article
+              <ExternalLink className="h-4 w-4" />
             </a>
           </div>
         </div>
