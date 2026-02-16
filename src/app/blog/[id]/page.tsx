@@ -39,7 +39,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pb-16 pt-8 md:px-6 md:pb-20 md:pt-10">
+    <main className="mx-auto max-w-4xl px-3 pb-12 pt-6 sm:px-4 md:px-6 md:pb-20 md:pt-10">
       <div className="mb-6 text-xs font-medium uppercase tracking-[0.26em] text-slate-400">
         <Link href="/blog" className="text-sky-300 hover:text-sky-200">
           Blog
@@ -48,7 +48,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       </div>
 
       <article className="overflow-hidden rounded-3xl border border-slate-800/80 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-950 shadow-[0_32px_90px_rgba(15,23,42,0.95)]">
-        <div className="relative aspect-[16/7] w-full overflow-hidden">
+        <div className="relative aspect-video sm:aspect-[16/9] lg:aspect-[16/7] w-full overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-800" />
           {post.imageUrl && (
             <Image
@@ -83,7 +83,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           </div>
         </div>
 
-        <div className="px-6 pb-8 pt-6 text-sm leading-relaxed text-slate-200 md:px-10 md:pb-10 md:pt-8 md:text-base">
+        <div className="px-4 pb-6 pt-5 text-xs leading-relaxed text-slate-200 sm:px-6 sm:pb-8 sm:pt-6 sm:text-sm md:px-10 md:pb-10 md:pt-8 md:text-base">
           <div className="mb-6 rounded-2xl bg-slate-900/70 p-4 text-xs text-slate-300 md:text-sm">
             <p>
               This article is sourced from{" "}

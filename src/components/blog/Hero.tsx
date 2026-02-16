@@ -1,10 +1,10 @@
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-sky-500/10 bg-gradient-to-br from-sky-950 via-slate-950 to-slate-950 px-6 py-10 shadow-[0_32px_90px_rgba(8,47,73,0.85)] md:px-10 md:py-14">
+    <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-sky-500/10 bg-gradient-to-br from-sky-950 via-slate-950 to-slate-950 px-4 py-8 shadow-[0_32px_90px_rgba(8,47,73,0.85)] sm:px-6 sm:py-10 md:px-10 md:py-14">
       <div className="pointer-events-none absolute -left-24 top-0 h-56 w-56 rounded-full bg-sky-500/20 blur-3xl" />
       <div className="pointer-events-none absolute -right-10 -bottom-10 h-64 w-64 rounded-full bg-indigo-500/25 blur-3xl" />
 
-      <div className="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <div className="relative flex flex-col gap-6 sm:gap-8 md:flex-row md:items-center md:justify-between">
         <div className="max-w-xl space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-300">
             curated insights
@@ -32,7 +32,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 rounded-2xl border border-sky-500/20 bg-slate-950/60 p-4 text-xs text-slate-200 md:max-w-xs">
+        <div className="flex flex-col gap-3 rounded-2xl border border-sky-500/20 bg-slate-950/60 p-3 text-xs text-slate-200 sm:p-4 md:max-w-xs">
           <p className="font-semibold text-slate-50">
             Why this feels like a studio blog
           </p>

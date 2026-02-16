@@ -26,12 +26,12 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-16 pt-6 md:px-6 md:pb-20 md:pt-10">
+    <main className="mx-auto max-w-6xl px-3 pb-12 pt-4 sm:px-4 md:px-6 md:pb-20 md:pt-10">
       <Hero />
 
-      <section className="mt-10 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] lg:items-start">
+      <section className="mt-8 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] lg:items-start">
         <div className="space-y-8">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
             <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
               All stories
             </h2>
@@ -54,7 +54,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           />
         </div>
 
-        <TopPostsRail posts={topPosts} />
+        <div className="mt-8 lg:mt-0">
+          <TopPostsRail posts={topPosts} />
+        </div>
       </section>
     </main>
   );
