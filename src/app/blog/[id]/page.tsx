@@ -1,22 +1,22 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { fetchBlogBySlug } from "@/lib/blog-api";
+import { fetchBlogById } from "@/lib/blog-api";
 import Link from "next/link";
 import Image from "next/image";
 
 interface BlogDetailPageProps {
-  params: { slug: string };
+  params: { id: number };
 }
 
-export async function generateMetadata({
-  params,
-}: BlogDetailPageProps): Promise<Metadata> {
-  const post = await fetchBlogBySlug(params.slug);
+export async function generateMetadata(
+  props: BlogDetailPageProps
+): Promise<Metadata> {
+  const { id } = await props.params;
+
+  const post = await fetchBlogById(Number(id));
 
   if (!post) {
-    return {
-      title: "Article not found",
-    };
+    return { title: "Article not found" };
   }
 
   return {
@@ -31,7 +31,8 @@ export async function generateMetadata({
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const post = await fetchBlogBySlug(params.slug);
+  const { id } = await params;
+  const post = await fetchBlogById(Number(id));
 
   if (!post) {
     notFound();

@@ -4,18 +4,19 @@ import BlogGrid from "@/components/blog/BlogGrid";
 import TopPostsRail from "@/components/blog/TopPostsRail";
 import Pagination from "@/components/shared/Pagination";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 interface BlogPageProps {
-  searchParams?: {
+  searchParams?: Promise<{
     page?: string;
-  };
+  }>;
 }
 
 const PAGE_SIZE = 9;
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const currentPage = Number(searchParams?.page) || 1;
+  const params = await searchParams;
+  const currentPage = Math.max(1, Number(params?.page) || 1);
 
   const [{ posts, total }, topPosts] = await Promise.all([
     fetchBlogPage(currentPage, PAGE_SIZE),

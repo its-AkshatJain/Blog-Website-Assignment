@@ -18,8 +18,15 @@ export default function Pagination({
 
   const pages: number[] = [];
   const maxVisible = 5;
-  const start = Math.max(1, currentPage - 2);
-  const end = Math.min(totalPages, start + maxVisible - 1);
+  const halfWindow = Math.floor(maxVisible / 2);
+  
+  let start = Math.max(1, currentPage - halfWindow);
+  let end = Math.min(totalPages, start + maxVisible - 1);
+  
+  // Adjust start if we're near the end
+  if (end - start + 1 < maxVisible) {
+    start = Math.max(1, end - maxVisible + 1);
+  }
 
   for (let p = start; p <= end; p++) {
     pages.push(p);
@@ -40,12 +47,12 @@ export default function Pagination({
       </div>
 
       <div className="flex items-center gap-1.5">
-        {pages[0] > 1 && (
+        {start > 1 && (
           <>
             <PaginationPage href={createHref(1)} active={currentPage === 1}>
               1
             </PaginationPage>
-            {pages[0] > 2 && (
+            {start > 2 && (
               <span className="px-2 text-xs text-slate-500">•••</span>
             )}
           </>
@@ -61,9 +68,9 @@ export default function Pagination({
           </PaginationPage>
         ))}
 
-        {pages[pages.length - 1] < totalPages && (
+        {end < totalPages && (
           <>
-            {pages[pages.length - 1] < totalPages - 1 && (
+            {end < totalPages - 1 && (
               <span className="px-2 text-xs text-slate-500">•••</span>
             )}
             <PaginationPage

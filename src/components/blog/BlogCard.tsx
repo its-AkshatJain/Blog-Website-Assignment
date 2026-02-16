@@ -6,26 +6,26 @@ interface BlogCardProps {
   post: BlogPost;
 }
 
+const FALLBACK_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250'%3E%3Crect fill='%231e293b' width='400' height='250'/%3E%3Ctext x='50%25' y='50%25' font-size='18' fill='%2364748b' text-anchor='middle' dominant-baseline='middle'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+
 export default function BlogCard({ post }: BlogCardProps) {
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-3xl border border-slate-800/80 bg-gradient-to-b from-slate-900/80 via-slate-950 to-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.85)] transition duration-300 hover:-translate-y-1.5 hover:border-sky-500/60 hover:shadow-[0_24px_65px_rgba(8,47,73,0.95)]">
-      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10">
+      <Link href={`/blog/${post.id}`} className="absolute inset-0 z-10">
         <span className="sr-only">{post.title}</span>
       </Link>
 
       <div className="relative aspect-[16/10] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-800" />
-        {post.imageUrl && (
-          <Image
-            src={post.imageUrl}
-            alt={post.title}
-            fill
-            className="object-cover opacity-70 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
-          />
-        )}
+        <Image
+          src={post.imageUrl || FALLBACK_IMAGE}
+          alt={post.title}
+          fill
+          className="object-cover opacity-70 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
-        <div className="absolute bottom-3 left-3 flex items-center gap-2 text-xs text-slate-200">
-          <span className="rounded-full bg-sky-500/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-950 shadow-md shadow-sky-500/70">
+        <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2 text-xs text-slate-200 overflow-hidden">
+          <span className="rounded-full bg-sky-500/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-950 shadow-md shadow-sky-500/70 whitespace-nowrap">
             {post.source}
           </span>
         </div>

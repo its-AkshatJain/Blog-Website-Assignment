@@ -22,7 +22,7 @@ export default function TopPostsRail({ posts }: TopPostsRailProps) {
         {posts.map((post) => (
           <Link
             key={post.id}
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.id}`}
             className="group block rounded-2xl border border-transparent bg-slate-900/40 px-3 py-3 text-sm text-slate-200 transition hover:border-sky-500/60 hover:bg-slate-900"
           >
             <div className="flex items-start gap-3">

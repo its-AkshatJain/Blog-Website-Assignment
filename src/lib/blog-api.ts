@@ -29,9 +29,8 @@ interface SpaceflightListResponse {
   }>;
 }
 
-async function fetchJson<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
+async function fetchJson<T>(input: RequestInfo, init?: RequestInit): Promise<T | null> {
   const res = await fetch(input, {
-    // Cache on the server and revalidate periodically
     next: { revalidate: 300 },
     ...init,
     headers: {
@@ -39,11 +38,15 @@ async function fetchJson<T>(input: RequestInfo, init?: RequestInit): Promise<T> 
     },
   });
 
+  if (res.status === 404) {
+    return null; 
+  }
+
   if (!res.ok) {
     throw new Error(`Failed to fetch blogs: ${res.status} ${res.statusText}`);
   }
 
-  return (await res.json()) as T;
+  return res.json() as Promise<T>;
 }
 
 function mapPost(item: SpaceflightListResponse["results"][number]): BlogPost {
@@ -69,26 +72,33 @@ async function fetchBlogPageRaw(page: number, pageSize: number) {
   const data = await fetchJson<SpaceflightListResponse>(url);
 
   return {
-    total: data.count,
-    posts: data.results.map(mapPost),
+    total: data?.count || 0,
+    posts: data?.results.map(mapPost) || [],
   };
 }
 
-async function fetchBlogBySlugRaw(slug: string): Promise<BlogPost | null> {
-  const url = `${API_BASE}?slug=${encodeURIComponent(slug)}`;
-  const data = await fetchJson<SpaceflightListResponse>(url);
+async function fetchBlogByIdRaw(id: number): Promise<BlogPost | null> {
+  const url = `${API_BASE}/${id}/`;
+  const data = await fetchJson<any>(url);
 
-  if (!data.results.length) {
-    return null;
-  }
+  if (!data) return null;
 
-  return mapPost(data.results[0]);
+  return {
+    id: data.id,
+    slug: String(data.id),
+    title: data.title,
+    summary: data.summary,
+    imageUrl: data.image_url,
+    publishedAt: data.published_at,
+    source: data.news_site,
+    originalUrl: data.url,
+  };
 }
 
 async function fetchTopPostsRaw(limit = 5): Promise<BlogPost[]> {
   const url = `${API_BASE}?limit=${limit}&ordering=-published_at`;
   const data = await fetchJson<SpaceflightListResponse>(url);
-  return data.results.map(mapPost);
+  return data?.results.map(mapPost) || [];
 }
 
 // --- TanStack Query-powered server helpers ---
@@ -106,12 +116,12 @@ export async function fetchBlogPage(page: number, pageSize: number) {
   });
 }
 
-export async function fetchBlogBySlug(slug: string): Promise<BlogPost | null> {
+export async function fetchBlogById(id: number): Promise<BlogPost | null> {
   const queryClient = createQueryClient();
 
   return queryClient.fetchQuery({
-    queryKey: ["blog-detail", slug],
-    queryFn: () => fetchBlogBySlugRaw(slug),
+    queryKey: ["blog-detail", id],
+    queryFn: () => fetchBlogByIdRaw(id),
   });
 }
 
@@ -123,4 +133,3 @@ export async function fetchTopPosts(limit = 5): Promise<BlogPost[]> {
     queryFn: () => fetchTopPostsRaw(limit),
   });
 }
-
