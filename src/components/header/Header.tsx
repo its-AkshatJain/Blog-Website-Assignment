@@ -22,7 +22,7 @@ export default function Header() {
         <nav className="hidden items-center gap-4 sm:gap-6 text-sm font-medium text-slate-700 md:flex">
           <Link
             href="/blog"
-            className="transition-colors hover:text-sky-600 relative group"
+            className="transition-colors hover:text-sky-600 relative group text-slate-600 dark:text-slate-400"
           >
             Blog
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-500 group-hover:w-full transition-all duration-300" />

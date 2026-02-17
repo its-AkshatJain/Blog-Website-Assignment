@@ -16,7 +16,6 @@ export default function ImageWithFallback({
   title,
 }: ImageWithFallbackProps) {
   const [imageError, setImageError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   if (!src || imageError) {
     return (
@@ -38,10 +37,10 @@ export default function ImageWithFallback({
     <Image
       src={src}
       alt={alt}
+      title={title}
       fill
       className="object-cover transition-transform hover:scale-105"
       onError={() => setImageError(true)}
-      onLoadingComplete={() => setIsLoading(false)}
     />
   );
 }
