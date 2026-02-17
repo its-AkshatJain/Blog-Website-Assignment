@@ -19,9 +19,9 @@ export default function ImageWithFallback({
 
   if (!src || imageError) {
     return (
-      <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-linear-to-br from-slate-800 to-slate-900">
         <div className="flex flex-col items-center gap-4">
-          <div className="rounded-full bg-gradient-to-br from-slate-700 to-slate-800 p-6 ring-2 ring-slate-600">
+          <div className="rounded-full bg-linear-to-br from-slate-700 to-slate-800 p-6 ring-2 ring-slate-600">
             <ImageOff className="h-14 w-14 text-slate-300" />
           </div>
           <div className="flex flex-col items-center gap-1">

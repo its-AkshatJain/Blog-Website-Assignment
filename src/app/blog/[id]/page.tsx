@@ -47,7 +47,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       </Link>
 
       <article className="overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-700/40 bg-linear-to-b from-white to-slate-50 dark:from-slate-900/60 dark:via-slate-900/30 dark:to-slate-950 shadow-2xl transition-colors duration-300">
-        <div className="relative aspect-video sm:aspect-video lg:aspect-16/7 w-full overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
+        <div className="relative aspect-video sm:aspect-video lg:aspect-16/7 w-full overflow-hidden bg-linear-to-br from-slate-800 to-slate-900">
           <ImageWithFallback src={post.imageUrl} alt={post.title} title={post.source} />
           <div className="absolute inset-0 bg-linear-to-t from-white via-white/50 dark:from-slate-950 dark:via-slate-950/50 to-transparent" />
 
