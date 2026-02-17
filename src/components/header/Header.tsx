@@ -11,7 +11,7 @@ export default function Header() {
           </div>
           <div className="flex flex-col leading-tight min-w-0">
             <span className="text-xs sm:text-sm font-bold tracking-widest text-sky-600 dark:text-sky-300 uppercase truncate">
-              IdeaBlog
+              Blog
             </span>
             <span className="hidden sm:inline text-[11px] text-slate-600 dark:text-slate-400 font-medium">
               Fresh insights

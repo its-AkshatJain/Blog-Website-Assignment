@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "IdeaBlog - Curated Insights for Modern Builders",
+  title: "Blog - Curated Insights for Modern Builders",
   description: "Explore practical guides, architecture deep dives, and case studies to help you design and ship better digital products.",
   viewport: "width=device-width, initial-scale=1",
 };
